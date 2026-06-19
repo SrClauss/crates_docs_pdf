@@ -4,6 +4,8 @@ use tokio::sync::Semaphore;
 use genpdf::{elements, style, Document, Element, SimplePageDecorator};
 use tauri::Emitter;
 
+// Force recompile: 3
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum ItemType {
     Module,
