@@ -144,8 +144,16 @@ fn main() {
             use tauri::Manager;
             if let Some(window) = app.get_webview_window("main") {
                 let icon_bytes = include_bytes!("../icons/icon.png");
-                if let Ok(icon) = tauri::image::Image::from_bytes(icon_bytes) {
-                    let _ = window.set_icon(icon);
+                match tauri::image::Image::from_bytes(icon_bytes) {
+                    Ok(icon) => {
+                        match window.set_icon(icon) {
+                            Ok(_) => println!("DEBUG: Ícone da janela definido com sucesso!"),
+                            Err(e) => eprintln!("DEBUG: Erro ao definir ícone da janela: {:?}", e),
+                        }
+                    }
+                    Err(e) => {
+                        eprintln!("DEBUG: Erro ao decodificar bytes do ícone: {:?}", e);
+                    }
                 }
             }
             Ok(())
