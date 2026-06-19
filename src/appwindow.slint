@@ -1,0 +1,230 @@
+import { Button, LineEdit, ScrollView, CheckBox } from "std-widgets.slint";
+
+export struct CrateData {
+    name: string,
+    desc: string,
+    href: string,
+}
+
+export component AppWindow inherits Window {
+    title: "Crate PDF Manual Generator - Windows XP Luna";
+    width: 600px;
+    height: 520px;
+    background: #ece9d8; // Windows XP Luna beige background
+
+    in-out property <[CrateData]> results: [];
+    in-out property <string> status-text: "Pronto. Digite a crate desejada.";
+    in-out property <bool> loading: false;
+    in-out property <bool> translate-to-pt: false;
+    in-out property <float> progress-value: 0.0; // 0.0 to 1.0
+
+    callback search-clicked(string);
+    callback select-crate(CrateData);
+
+    VerticalLayout {
+        width: root.width;
+        height: root.height;
+        padding: 16px;
+        spacing: 16px;
+
+        // Group 1: Search Crate
+        Rectangle {
+            border-width: 1px;
+            border-color: #d4d0c8;
+            height: 80px;
+
+            // Embedded title cutting through the top border
+            Rectangle {
+                x: 12px;
+                y: -8px;
+                width: title-text.width + 8px;
+                height: 16px;
+                background: #ece9d8;
+                title-text := Text {
+                    text: " Buscar Crate ";
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: #000000;
+                    horizontal-alignment: center;
+                }
+            }
+
+            VerticalLayout {
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 16px;
+                padding-bottom: 12px;
+                spacing: 8px;
+
+                HorizontalLayout {
+                    spacing: 8px;
+                    alignment: stretch;
+                    
+                    search-input := LineEdit {
+                        placeholder-text: "Ex: serde, tokio, regex, rand...";
+                        height: 24px;
+                        accepted => {
+                            if (!root.loading && self.text != "") {
+                                root.loading = true;
+                                root.search-clicked(self.text);
+                            }
+                        }
+                    }
+                    
+                    Button {
+                        text: root.loading ? "..." : "Buscar";
+                        enabled: !root.loading && search-input.text != "";
+                        width: 90px;
+                        height: 24px;
+                        clicked => {
+                            root.loading = true;
+                            root.search-clicked(search-input.text);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Option: Translation Checkbox
+        HorizontalLayout {
+            padding-left: 4px;
+            CheckBox {
+                text: "Traduzir documentação para o Português (Google Translate)";
+                checked <=> root.translate-to-pt;
+            }
+        }
+
+        // Group 2: Status and Progress
+        Rectangle {
+            border-width: 1px;
+            border-color: #d4d0c8;
+            height: 85px;
+
+            // Embedded title
+            Rectangle {
+                x: 12px;
+                y: -8px;
+                width: status-title.width + 8px;
+                height: 16px;
+                background: #ece9d8;
+                status-title := Text {
+                    text: " Progresso e Operação ";
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: #000000;
+                }
+            }
+
+            VerticalLayout {
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 16px;
+                padding-bottom: 12px;
+                spacing: 8px;
+
+                // Status Label
+                Text {
+                    text: "Status: " + root.status-text;
+                    font-size: 11px;
+                    color: #000000;
+                    overflow: elide;
+                }
+
+                // Sunken Progress Bar
+                Rectangle {
+                    height: 20px;
+                    background: #ffffff;
+                    border-width: 1px;
+                    border-color: #7f9db9;
+
+                    // Green glossy progress fill
+                    Rectangle {
+                        x: 1px;
+                        y: 1px;
+                        width: (parent.width - 2px) * root.progress-value;
+                        height: parent.height - 2px;
+                        background: @linear-gradient(180deg, #b3f2b3 0%, #32c832 50%, #158c15 100%);
+                    }
+                }
+            }
+        }
+
+        // Group 3: Search Results
+        Rectangle {
+            border-width: 1px;
+            border-color: #d4d0c8;
+
+            // Embedded title
+            Rectangle {
+                x: 12px;
+                y: -8px;
+                width: results-title.width + 8px;
+                height: 16px;
+                background: #ece9d8;
+                results-title := Text {
+                    text: " Crates Encontradas ";
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: #000000;
+                }
+            }
+
+            VerticalLayout {
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 16px;
+                padding-bottom: 12px;
+
+                // ListView with Sunken Bevel and White background
+                Rectangle {
+                    background: #ffffff;
+                    border-width: 1px;
+                    border-color: #7f9db9;
+                    
+                    ScrollView {
+                        VerticalLayout {
+                            padding: 2px;
+                            spacing: 1px;
+                            
+                            for crate[idx] in root.results : item-area := TouchArea {
+                                height: 40px;
+                                clicked => {
+                                    if (!root.loading) {
+                                        root.loading = true;
+                                        root.select-crate(crate);
+                                    }
+                                }
+                                
+                                Rectangle {
+                                    background: item-area.has-hover ? #316ac5 : #ffffff; // XP selection blue
+                                    
+                                    HorizontalLayout {
+                                        padding-left: 8px;
+                                        padding-right: 8px;
+                                        
+                                        VerticalLayout {
+                                            alignment: center;
+                                            spacing: 1px;
+                                            Text {
+                                                text: crate.name;
+                                                font-weight: 700;
+                                                color: item-area.has-hover ? #ffffff : #000000;
+                                                font-size: 11px;
+                                            }
+                                            Text {
+                                                text: crate.desc;
+                                                color: item-area.has-hover ? #dbeafe : #555555;
+                                                font-size: 9px;
+                                                overflow: elide;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

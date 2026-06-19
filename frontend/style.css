@@ -1,0 +1,352 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  background-color: transparent;
+  font-family: "Tahoma", "Segoe UI", sans-serif;
+  font-size: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* XP Window Container */
+.xp-window {
+  width: 800px;
+  height: 590px;
+  background-color: #ece9d8; /* Beige XP background */
+  border: 3px solid #0054e3; /* Blue Luna outer border */
+  border-top-width: 1px;
+  border-radius: 7px 7px 0 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title Bar */
+.xp-titlebar {
+  height: 29px;
+  background: linear-gradient(to right, #0054e3 0%, #2788f5 60%, #0054e3 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px #003c74;
+  border-radius: 6px 6px 0 0;
+}
+
+.xp-title-icon {
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.xp-title-text {
+  flex-grow: 1;
+  overflow: elide;
+  white-space: nowrap;
+}
+
+.xp-titlebar-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.xp-titlebar-buttons button {
+  width: 21px;
+  height: 21px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+  border: 1px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.xp-btn-min, .xp-btn-max {
+  background: linear-gradient(to bottom, #609dfd 0%, #1c5ab5 100%);
+  color: #fff;
+  border-color: #4b8dfc #124d9c #124d9c #4b8dfc !important;
+}
+
+.xp-btn-min:disabled, .xp-btn-max:disabled {
+  opacity: 0.6;
+}
+
+.xp-btn-close {
+  background: linear-gradient(to bottom, #f27c62 0%, #ba280d 50%, #8a1300 100%);
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 11px;
+  border-color: #f79680 #700d00 #700d00 #f79680 !important;
+  text-shadow: 1px 1px 1px #5c0d00;
+}
+
+.xp-btn-close:hover {
+  background: linear-gradient(to bottom, #ff9e87 0%, #d83d1c 50%, #b21e07 100%);
+}
+
+.xp-btn-close:active {
+  background: linear-gradient(to bottom, #a31400 0%, #c4290e 100%);
+}
+
+/* Content Area */
+.xp-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+/* Fieldset (GroupBox) */
+.xp-fieldset {
+  border: 1px solid #d4d0c8;
+  border-right: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.xp-fieldset legend {
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  padding: 0 6px;
+}
+
+/* Forms & Fields */
+.xp-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.xp-field-row label {
+  color: #000;
+}
+
+.xp-search-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.xp-search-input-group input[type="text"] {
+  flex-grow: 1;
+  height: 24px;
+  border: 1px solid #7f9db9;
+  background-color: #ffffff;
+  padding: 0 6px;
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  outline: none;
+}
+
+.xp-search-input-group input[type="text"]:focus {
+  border-color: #2788f5;
+}
+
+/* XP Style Buttons */
+.xp-button {
+  height: 24px;
+  min-width: 80px;
+  border: 1px solid #003c74;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #ffffff 0%, #ece9d8 100%);
+  color: #000;
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  padding: 0 12px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.xp-button:hover {
+  background: linear-gradient(to bottom, #fafafa 0%, #e6e3d2 100%);
+  border-color: #0054e3;
+}
+
+.xp-button:active {
+  background: linear-gradient(to bottom, #e1ddc9 0%, #fafafa 100%);
+  border-color: #003c74;
+}
+
+.xp-button:disabled {
+  opacity: 0.6;
+  border-color: #d4d0c8;
+  background: #ece9d8;
+  color: #808080;
+}
+
+/* Options */
+.xp-options-row {
+  padding-left: 4px;
+}
+
+.xp-checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+}
+
+.xp-checkbox-container input[type="checkbox"] {
+  accent-color: #316ac5;
+  width: 14px;
+  height: 14px;
+  cursor: default;
+}
+
+.xp-checkbox-label {
+  color: #000;
+  font-size: 11px;
+}
+
+/* Status & Progress */
+.xp-status-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #000000;
+  margin-bottom: 2px;
+}
+
+#status-label {
+  font-weight: normal;
+  overflow: hidden;
+  text-overflow: elide;
+  white-space: nowrap;
+  max-width: 80%;
+}
+
+#timer-label {
+  color: #555;
+  font-weight: bold;
+}
+
+.xp-progress-container {
+  height: 20px;
+  background-color: #ffffff;
+  border: 1px solid #7f9db9;
+  padding: 1px;
+}
+
+.xp-progress-bar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Dynamic XP segmented block */
+.xp-progress-block {
+  width: 8px;
+  height: 100%;
+  margin-right: 2px;
+  background: linear-gradient(to bottom, #b3f2b3 0%, #32c832 50%, #158c15 100%);
+  flex-shrink: 0;
+}
+
+/* Search Results List View */
+.results-fieldset {
+  flex-grow: 1;
+  min-height: 200px;
+}
+
+.xp-listview-container {
+  width: 100%;
+  flex-grow: 1;
+  background-color: #ffffff;
+  border: 1px solid #7f9db9;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.xp-listview {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.xp-listview th {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, #f2f0e6 0%, #e2dfd0 100%);
+  border-right: 1px solid #d4d0c8;
+  border-bottom: 1px solid #7f9db9;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: normal;
+  color: #000000;
+  cursor: default;
+}
+
+.xp-listview th:last-child {
+  border-right: none;
+}
+
+.xp-listview td {
+  padding: 6px 8px;
+  font-size: 11px;
+  border-right: 1px solid #f0f0f0;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0; /* allows text-overflow ellipsis to trigger in flex/table layouts */
+}
+
+.xp-listview td.col-name {
+  font-weight: bold;
+}
+
+.xp-listview tr {
+  cursor: default;
+}
+
+.xp-listview tbody tr:hover {
+  background-color: #e5efff;
+}
+
+.xp-listview tbody tr.selected {
+  background-color: #316ac5 !important;
+  color: #ffffff !important;
+}
+
+.xp-listview tbody tr.selected td {
+  color: #ffffff !important;
+}
+
+.xp-listview-empty {
+  text-align: center;
+  color: #808080;
+  padding: 30px !important;
+  font-style: italic;
+  max-width: none !important;
+  white-space: normal !important;
+}
+
+/* Col Widths */
+.col-name {
+  width: 25%;
+}
+.col-desc {
+  width: 75%;
+}

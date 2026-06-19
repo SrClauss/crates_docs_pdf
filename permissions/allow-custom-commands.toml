@@ -1,0 +1,9 @@
+[[permission]]
+identifier = "allow-custom-commands"
+description = "Allows invoking search_crates and generate_pdf commands"
+
+[permission.commands]
+allow = [
+  "search_crates",
+  "generate_pdf"
+]

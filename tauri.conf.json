@@ -1,0 +1,30 @@
+{
+  "productName": "crates-docs-pdf",
+  "version": "0.1.0",
+  "identifier": "com.crates-docs-pdf.app",
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "frontendDist": "frontend"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "Crate PDF Manual Generator - Windows XP Luna",
+        "width": 840,
+        "height": 630,
+        "resizable": false,
+        "decorations": false,
+        "transparent": true,
+        "label": "main"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": false
+  }
+}
